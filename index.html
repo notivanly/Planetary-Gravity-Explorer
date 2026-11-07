@@ -1,61 +1,871 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080d1e">
-<title>Gravity Atlas — Planetary Gravity Explorer</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gravity Atlas | Planetary Gravity Explorer</title>
+<meta name="description" content="Same universe. Different gravity. Explore surface gravity, escape velocity, weight, drops and jumps across all eight planets.">
+<meta name="theme-color" content="#0c0c0d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23202123'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23fff' stroke-width='1.6'/%3E%3Ccircle cx='22' cy='11' r='3' fill='%23ff4f2e'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&family=Martian+Mono:wght@400;500&display=swap" rel="stylesheet">
+
 <style>
-:root{color-scheme:dark;--bg:#080d1e;--panel:#111b31;--panel2:#16223b;--line:#273650;--ink:#eef3ff;--muted:#98a9c7;--accent:#8cafff;--gold:#ffcc80}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse 90% 48% at 55% -15%,#233d6b 0%,transparent 78%),var(--bg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink)}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:2px solid #91b3ff;outline-offset:3px}.wrap{max-width:1250px;margin:auto;padding:28px 24px 72px}.top{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:42px}.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.02em}.logo{background:linear-gradient(135deg,#7b9dff,#a8d1ff);color:#0d1831;border-radius:12px;width:36px;height:36px;display:grid;place-items:center;font-size:19px}.eyebrow{color:var(--accent);font-weight:800;text-transform:uppercase;font-size:11px;letter-spacing:.2em}.hero{max-width:820px}.hero h1{font-size:clamp(36px,5vw,64px);letter-spacing:-.055em;line-height:1.07;margin:12px 0 16px}.hero p{color:#bac9e1;font-size:17px;line-height:1.65;margin:0}.outline{background:transparent;color:#dbe7ff;border:1px solid var(--line);border-radius:10px;padding:10px 15px}.pill{border:1px solid #344969;color:#afc8f5;border-radius:999px;padding:8px 12px;font-size:12px}.sectionhead{display:flex;justify-content:space-between;align-items:center;gap:14px;margin:36px 0 13px}.sectionhead h2{font-size:18px;margin:0;letter-spacing:-.02em}.small{font-size:12px;color:var(--muted)}.planets{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:10px}.planet{min-width:0;background:#111b30;border:1px solid #263550;border-radius:15px;min-height:125px;color:#c9d6ec;padding:12px 5px 11px;display:flex;align-items:center;flex-direction:column;justify-content:space-around;transition:.2s}.planet:hover{border-color:#6682bd;transform:translateY(-2px)}.planet.active{background:#20365c;border-color:#8eafff;box-shadow:0 0 0 1px #8eafff22}.orb{width:62px;height:62px;border-radius:50%;box-shadow:inset -16px -11px 16px #0007,0 0 21px #719bd011;position:relative;flex-shrink:0}.orb.saturn:after{content:"";position:absolute;inset:19px -18px;border:7px solid #cfb88d99;border-left-color:#dcc6a8;border-right-color:#8e795a;border-radius:50%;transform:rotate(-24deg)}.planet span{font-size:12px;font-weight:700}.planet em{font-size:10px;color:#a9bad5;font-style:normal}.layout{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{background:linear-gradient(145deg,#121f36,#10192d);border:1px solid var(--line);border-radius:18px;padding:22px;min-width:0}.card h3{font-size:17px;margin:0 0 6px}.card .desc{font-size:12px;color:var(--muted);margin:0 0 20px;line-height:1.55}.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.stat{background:#0c1528;border:1px solid #253650;border-radius:13px;padding:17px}.stat .name{color:#9eafcd;font-size:12px;margin-bottom:8px}.stat .value{font-size:clamp(20px,2.5vw,29px);font-weight:800;letter-spacing:-.035em;font-variant-numeric:tabular-nums}.stat .unit{font-weight:500;color:#9fb1d0;font-size:12px;margin-left:3px}.stat .hint{color:#7187aa;font-size:11px;margin-top:5px}.row{display:flex;align-items:center;justify-content:space-between;gap:12px}.controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:20px}.field label{display:block;color:#a8bad5;font-size:12px;margin-bottom:8px}.field input{width:100%;background:#0b1428;color:#edf4ff;border:1px solid #34435e;border-radius:9px;padding:11px}.field input[type=range]{padding:0;accent-color:#9bb8ff;border:0;background:transparent}.scene{height:265px;border-radius:13px;position:relative;overflow:hidden;background:radial-gradient(ellipse at 55% 10%,#2b3a68,#0b142a 70%);border:1px solid #2a3b5c}.scene canvas{width:100%;height:100%;display:block}.scene .tag{position:absolute;top:12px;left:12px;font-size:11px;color:#c1d0eb;background:#101c32cc;border:1px solid #3c5273;border-radius:7px;padding:6px 9px}.btns{display:flex;gap:9px;margin-top:13px;flex-wrap:wrap}.primary{background:#9ab9ff;color:#10203d;border:0;border-radius:10px;padding:11px 16px;font-weight:800}.secondary{background:#1d2d49;border:1px solid #3d5276;color:#d4e3ff;border-radius:10px;padding:10px 15px}.primary:hover{background:#bad0ff}.secondary:hover{background:#293c5d}.readout{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}.readout>div{border:1px solid #2c3b55;background:#101a2d;border-radius:10px;padding:11px}.readout span{display:block;font-size:11px;color:#92a6c8;margin-bottom:5px}.readout strong{font-size:17px;font-variant-numeric:tabular-nums}.charts{margin-top:16px}.barline{display:grid;grid-template-columns:74px 1fr 73px;gap:10px;align-items:center;margin:10px 0;font-size:12px}.bartrack{height:11px;background:#273954;border-radius:99px;overflow:hidden}.barfill{height:100%;border-radius:99px;background:linear-gradient(90deg,#658fe5,#b8d1ff)}.barline.on .barfill{background:linear-gradient(90deg,#d89c55,#ffe6a6)}.barline.on{color:#ffdbad}.barline .end{text-align:right;color:#b7c9e6;font-variant-numeric:tabular-nums}.note{border-left:3px solid #7ea7f4;background:#111e35;padding:14px 17px;border-radius:0 9px 9px 0;color:#afc0de;line-height:1.6;font-size:12px;margin-top:16px}.wide{grid-column:span 2}.formula{background:#0b1427;border:1px solid #2a3b56;border-radius:10px;padding:14px;color:#dbe7fb;font-size:13px;line-height:1.65}.formula code{color:#a8c4ff}.footer{margin-top:35px;text-align:center;color:#8398b8;font-size:12px;line-height:1.7}.metric-select{background:#0e192d;border:1px solid #354666;border-radius:9px;color:#e4edff;padding:9px;max-width:180px}.helper{color:#b4c7e5;font-size:12px;line-height:1.5;margin-top:11px}@media(max-width:850px){.planets{grid-template-columns:repeat(4,1fr)}.layout{grid-template-columns:1fr}.wide{grid-column:auto}.top{margin-bottom:26px}}@media(max-width:460px){.wrap{padding:20px 13px 50px}.planets{gap:6px}.orb{height:45px;width:45px}.planet{min-height:102px}.card{padding:15px}.controls{grid-template-columns:1fr 1fr}.stat{padding:12px}.stat .value{font-size:21px}.barline{grid-template-columns:62px 1fr 67px;gap:6px}.pill{display:none}.readout strong{font-size:14px}}
+/* ==========================================================================
+   Gravity Atlas | Planetary Gravity Explorer
+   Same design system as the rest of the portfolio: graphite gradients, bone
+   white type, one signal red. Hanken Grotesk for copy, Martian Mono for data.
+   ========================================================================== */
+:root {
+  --bg: #0c0c0d; --ink: #f4f4f1; --ink-2: rgba(244,244,241,.68); --ink-3: rgba(244,244,241,.44);
+  --line: rgba(255,255,255,.15); --signal: #ff4f2e;
+  --frame: 10px; --pad: clamp(22px, 3.4vw, 52px); --colB: 26vw; --ease: cubic-bezier(.2,.7,.1,1);
+  --sans: "Hanken Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: "Martian Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; background: var(--bg); -webkit-text-size-adjust: 100%; }
+body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+::selection { background: var(--signal); color: #fff; }
+:focus-visible { outline: 2px solid #fff; outline-offset: 3px; border-radius: 3px; }
+.mono { font-family: var(--mono); }
+.skip { position: fixed; left: 12px; top: -60px; z-index: 100; background: #fff; color: #111; padding: .6rem 1rem; border-radius: 999px; font-size: .8rem; }
+.skip:focus { top: 12px; }
+
+/* header */
+.site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 50; height: 96px; pointer-events: none; }
+.site-header::before { content: ""; position: absolute; inset: 0 0 -24px 0; z-index: -1; background: linear-gradient(to bottom, rgba(12,12,13,.8), rgba(12,12,13,0)); transition: opacity .5s ease; }
+.is-top .site-header::before { opacity: 0; }
+.site-header > * { pointer-events: auto; }
+.brand { position: absolute; left: calc(var(--frame) + var(--pad)); top: 30px; display: flex; flex-direction: column; gap: 5px; }
+.brand-name { font-weight: 600; font-size: .8125rem; letter-spacing: .1em; line-height: 1.1; }
+.brand-sub { font-size: .625rem; letter-spacing: .14em; font-weight: 500; opacity: .62; line-height: 1.1; }
+.nav { position: absolute; left: calc(var(--frame) + var(--colB)); top: 30px; display: flex; font-size: .8125rem; font-weight: 500; }
+.nav a { position: relative; opacity: .7; transition: opacity .25s ease; padding-bottom: 4px; }
+.nav a + a { margin-left: 1.9em; }
+.nav a + a::before { content: "/"; position: absolute; left: -1.25em; opacity: .45; }
+.nav a:hover, .nav a.is-active { opacity: 1; }
+.nav a.is-active::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: currentColor; }
+.pill { position: absolute; right: calc(var(--frame) + var(--pad)); top: 22px; padding: .68rem 1.15rem; font-size: .78rem; font-weight: 500; border: 1px solid rgba(255,255,255,.55); border-radius: 999px; background: rgba(255,255,255,.03); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); transition: background .3s ease, color .3s ease; }
+.pill:hover { background: #fff; color: #111; }
+.ico { width: .72rem; height: .72rem; fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; margin-left: .35rem; }
+
+/* rail */
+.rail { position: fixed; right: calc(var(--frame) + 14px); top: 50%; transform: translateY(-50%); z-index: 40; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+.rail a { display: flex; align-items: center; gap: 10px; padding: 4px 0; }
+.rail .num { font-size: .58rem; opacity: 0; transform: translateX(6px); transition: opacity .4s ease, transform .5s var(--ease); }
+.rail i { display: block; width: 14px; height: 1px; background: rgba(255,255,255,.4); transition: width .5s var(--ease), background .3s ease; }
+.rail a.is-active .num { opacity: .9; transform: none; }
+.rail a.is-active i { width: 30px; background: #fff; }
+
+/* slides */
+main { padding-top: var(--frame); }
+.slide { --g1: #5d5e61; --g2: #37383b; --g3: #18191b; --gx: 70%; --gy: 38%;
+  position: relative; isolation: isolate; overflow: hidden;
+  height: calc(100vh - 2 * var(--frame)); height: calc(100svh - 2 * var(--frame)); min-height: 700px;
+  margin: 0 var(--frame) var(--frame); border-radius: 24px;
+  background: radial-gradient(130% 110% at var(--gx) var(--gy), var(--g1) 0%, var(--g2) 46%, var(--g3) 100%);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); }
+.slide[data-tone="light"] { --g1: #77787b; --g2: #47484b; --g3: #1c1d1f; }
+.slide[data-tone="dark"] { --g1: #4d4e51; --g2: #2f3033; --g3: #151517; }
+.slide::after { content: ""; position: absolute; inset: 0; z-index: 6; pointer-events: none; opacity: .1; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.stage { position: absolute; inset: 0; z-index: 1; opacity: 0; transform: scale(1.04); }
+.slide.in .stage { opacity: 1; transform: none; transition: opacity 1.4s ease, transform 2s var(--ease); }
+.stage canvas { display: block; }
+.index { position: absolute; z-index: 3; left: var(--pad); top: calc(15% - 28px); font-size: .72rem; letter-spacing: .04em; }
+
+/* copy + type */
+.copy, .col { position: absolute; z-index: 3; left: var(--pad); top: 15%; width: clamp(250px, 26vw, 400px); text-shadow: 0 0 28px rgba(0,0,0,.28); }
+.title { font-weight: 500; font-size: clamp(1.5rem, 2.9vw, 3.3rem); line-height: 1.06; letter-spacing: .012em; }
+.line { display: block; overflow: hidden; padding: .06em 0; margin: -.06em 0; }
+.line > span { display: block; transform: translateY(112%); }
+.slide.in .line > span { transform: none; transition: transform 1.2s var(--ease); transition-delay: calc(var(--i, 0) * 100ms + 200ms); }
+.line > span.out { transform: translateY(112%) !important; transition: transform .25s ease !important; }
+.sub { margin-top: .9rem; font-size: .8rem; color: var(--ink-2); }
+.desc { margin-top: 1.2rem; max-width: 24rem; font-size: .84rem; line-height: 1.68; color: var(--ink-2); }
+.hint { margin-top: 1.3rem; font-size: .74rem; color: var(--ink-3); }
+[data-r] { opacity: 0; }
+.slide.in [data-r] { opacity: 1; transition: opacity 1s ease calc(var(--d, 0) * 1ms + 300ms); }
+.hero .copy { width: clamp(300px, 34vw, 560px); top: 22%; }
+.hero .title { font-size: clamp(1.9rem, 3.6vw, 4.1rem); }
+.hero .desc { max-width: 22rem; }
+.hero .index { top: calc(22% - 28px); }
+
+.foot { position: absolute; z-index: 4; left: var(--pad); bottom: 26px; font-size: .8rem; font-weight: 500; display: flex; gap: 2.4rem; }
+.cue { display: inline-flex; align-items: center; }
+.cue svg { width: .8rem; height: .8rem; fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; margin-right: .55rem; animation: nudge 1.9s var(--ease) infinite; }
+@keyframes nudge { 0%, 100% { transform: translateY(-2px); } 50% { transform: translateY(3px); } }
+.link { display: inline-flex; align-items: center; padding-bottom: 2px; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .4s var(--ease); }
+.link:hover { background-size: 100% 1px; }
+
+/* picker */
+.picker .copy { top: 15%; }
+.pk-layer { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+.pk { position: absolute; border-radius: 50%; pointer-events: auto; cursor: pointer; background: transparent; transform: translate(-50%, -50%); }
+.pk span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.pk:focus-visible { outline: 2px solid #fff; outline-offset: 5px; border-radius: 50%; }
+
+/* planet panel */
+.stats { margin-top: 1.6rem; }
+.stats > div { display: grid; grid-template-columns: 1fr auto; gap: .1rem 1rem; align-items: baseline; padding: .62rem 0; border-top: 1px solid var(--line); }
+.stats > div:last-child { border-bottom: 1px solid var(--line); }
+.stats dt { font-size: .78rem; color: var(--ink-2); }
+.stats dd { text-align: right; }
+.stats b { font-family: var(--mono); font-size: .95rem; font-weight: 500; }
+.stats small { font-family: var(--mono); font-size: .66rem; color: var(--ink-3); margin-left: .25rem; }
+.stats em { grid-column: 1 / -1; font-style: normal; font-size: .68rem; color: var(--ink-3); }
+.note { margin-top: 1.2rem; padding-left: .9rem; border-left: 1px solid var(--signal); font-size: .74rem; line-height: 1.6; color: var(--ink-2); max-width: 24rem; }
+
+/* controls (lab) */
+.controls { margin-top: 1.5rem; }
+.ctl { padding: .6rem 0 .66rem; border-top: 1px solid var(--line); }
+.ctl:last-of-type { border-bottom: 1px solid var(--line); }
+.ctl-top { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: .45rem; }
+.ctl label { font-size: .78rem; color: var(--ink-2); }
+.num { width: 6.2rem; text-align: right; font-family: var(--mono); font-size: .76rem; font-weight: 500; color: var(--ink); background: transparent; border: 0; border-bottom: 1px solid transparent; padding: 0 0 1px; -moz-appearance: textfield; }
+.num::-webkit-outer-spin-button, .num::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.num:hover, .num:focus { border-bottom-color: var(--line); outline: none; }
+.rng { -webkit-appearance: none; appearance: none; width: 100%; height: 18px; background: transparent; cursor: pointer; }
+.rng::-webkit-slider-runnable-track { height: 1px; background: rgba(255,255,255,.4); }
+.rng::-moz-range-track { height: 1px; background: rgba(255,255,255,.4); }
+.rng::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; margin-top: -6px; border-radius: 50%; background: #fff; border: 0; box-shadow: 0 0 0 4px rgba(255,255,255,.12); transition: box-shadow .25s ease; }
+.rng::-moz-range-thumb { width: 13px; height: 13px; border-radius: 50%; background: #fff; border: 0; box-shadow: 0 0 0 4px rgba(255,255,255,.12); }
+.rng:hover::-webkit-slider-thumb, .rng:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 7px rgba(255,255,255,.2); }
+.rng:focus-visible { outline: none; }
+.btns { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.1rem; }
+.btn { padding: .52rem 1rem; font-size: .76rem; font-weight: 500; border: 1px solid rgba(255,255,255,.45); border-radius: 999px; transition: background .25s ease, color .25s ease, border-color .25s ease; }
+.btn:hover { background: #fff; color: #111; }
+.btn.is-on { background: #fff; color: #111; border-color: #fff; }
+.btn.primary { border-color: var(--signal); }
+.btn.primary:hover { background: var(--signal); border-color: var(--signal); color: #fff; }
+.toggle { display: inline-flex; align-items: center; gap: .6rem; margin-top: 1rem; font-size: .76rem; color: var(--ink-2); cursor: pointer; }
+.toggle input { appearance: none; -webkit-appearance: none; width: 30px; height: 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,.5); position: relative; cursor: pointer; transition: background .25s ease; }
+.toggle input::after { content: ""; position: absolute; top: 2px; left: 2px; width: 10px; height: 10px; border-radius: 50%; background: #fff; transition: transform .25s var(--ease); }
+.toggle input:checked { background: var(--signal); border-color: var(--signal); }
+.toggle input:checked::after { transform: translateX(14px); }
+
+/* readouts */
+.hud { position: absolute; z-index: 4; right: var(--pad); bottom: 22px; display: flex; gap: clamp(18px, 2.6vw, 44px); padding-top: .8rem; border-top: 1px solid var(--line); }
+.hud > div { display: flex; flex-direction: column; gap: .3rem; }
+.hud dt { font-size: .66rem; line-height: 1.2; color: var(--ink-3); }
+.hud dd { font-family: var(--mono); font-size: 1.05rem; font-weight: 500; white-space: nowrap; transition: color .3s ease; }
+.hud.done dd { color: #fff; }
+
+/* compare */
+.tabs { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.4rem; }
+.tab { padding: .45rem .85rem; font-size: .72rem; font-weight: 500; border: 1px solid rgba(255,255,255,.4); border-radius: 999px; transition: background .25s ease, color .25s ease, border-color .25s ease; text-align: left; }
+.tab:hover { background: rgba(255,255,255,.12); }
+.tab[aria-selected="true"] { background: #fff; color: #111; border-color: #fff; }
+.bars { position: absolute; z-index: 3; left: 36vw; right: var(--pad); top: 15%; bottom: 12%; display: flex; flex-direction: column; justify-content: space-between; }
+.bar { display: grid; grid-template-columns: 5.6rem 1fr 5.2rem; align-items: center; gap: 1.2rem; text-align: left; padding: .35rem 0; border-top: 1px solid var(--line); color: var(--ink-2); transition: color .3s ease; }
+.bar:last-child { border-bottom: 1px solid var(--line); }
+.bar .nm { font-size: .84rem; font-weight: 500; }
+.bar .track { position: relative; height: 12px; }
+.bar .track i { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: rgba(255,255,255,.78); transition: width .9s var(--ease), background .3s ease; }
+.bar .val { font-family: var(--mono); font-size: .8rem; font-weight: 500; text-align: right; color: var(--ink); }
+.bar:hover { color: var(--ink); }
+.bar.sel { color: var(--ink); }
+.bar.sel .track i { background: var(--signal); }
+.bar.sel .nm::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--signal); margin-right: .5rem; vertical-align: middle; }
+
+/* method */
+.formulas { position: absolute; z-index: 3; left: 36vw; right: var(--pad); top: 15%; display: grid; grid-template-columns: 1fr 1fr; gap: 0 3.2rem; }
+.formula { padding: 1.05rem 0 1.2rem; border-top: 1px solid var(--line); }
+.formula b { display: block; font-weight: 500; font-size: .92rem; margin-bottom: .55rem; }
+.formula code { display: block; font-family: var(--mono); font-size: .8rem; line-height: 1.8; color: var(--ink); }
+.formula p { margin-top: .45rem; font-size: .72rem; line-height: 1.55; color: var(--ink-3); }
+.fine { position: absolute; z-index: 3; left: 36vw; right: var(--pad); bottom: 70px; font-size: .74rem; line-height: 1.65; color: var(--ink-2); max-width: 46rem; }
+.legal { position: absolute; z-index: 4; left: var(--pad); right: var(--pad); bottom: 24px; display: flex; justify-content: space-between; gap: 2rem; font-size: .7rem; color: var(--ink-3); }
+
+/* small screens */
+@media (max-width: 860px) {
+  :root { --colB: var(--pad); }
+  .nav, .rail { display: none; }
+  .slide { min-height: calc(100svh - 20px); height: auto; border-radius: 18px; padding-bottom: 90px; }
+  .copy, .col { position: relative; left: auto; top: auto; width: auto; padding: 112px var(--pad) 0; }
+  .hero .copy { padding-top: 118px; width: auto; }
+  .index, .hero .index { top: 88px; }
+  .title, .hero .title { font-size: clamp(1.7rem, 8.6vw, 2.8rem); }
+  .stage canvas { opacity: .6; }
+  .bars, .formulas, .fine { position: relative; left: auto; right: auto; top: auto; bottom: auto; margin: 1.6rem var(--pad) 0; }
+  .bars { gap: .15rem; }
+  .bar { grid-template-columns: 4.6rem 1fr 4.4rem; gap: .8rem; }
+  .formulas { grid-template-columns: 1fr; }
+  .legal { position: relative; left: auto; right: auto; bottom: auto; flex-direction: column; gap: .6rem; margin: 2rem var(--pad) 0; }
+  .foot { left: var(--pad); bottom: 22px; }
+  .hud { position: relative; right: auto; bottom: auto; margin: 1.2rem var(--pad) 0; flex-wrap: wrap; }
+  .lab { display: flex; flex-direction: column; }
+  .lab .col { display: contents; }
+  .lab .intro { order: 1; padding: 112px var(--pad) 0; }
+  .lab .stage { position: relative; order: 2; height: 46svh; min-height: 300px; margin-top: .8rem; }
+  .lab .stage canvas { opacity: 1; }
+  .lab .hud { order: 3; }
+  .lab .controls { order: 4; padding: 0 var(--pad); margin-top: 1.2rem; }
+  .lab .btns, .lab .toggle { order: 5; margin-left: var(--pad); margin-right: var(--pad); }
+  .picker { min-height: 640px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .stage, .line > span, [data-r] { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .cue svg { animation: none; }
+  .bar .track i { transition: none; }
+}
 </style>
 </head>
+
 <body>
-<main class="wrap">
-<header class="top"><div class="brand"><div class="logo">✦</div> GRAVITY ATLAS</div><div class="pill">Interactive planetary physics lab</div></header>
-<section class="hero"><div class="eyebrow">Explore our solar system</div><h1>Same universe.<br>Different gravity.</h1><p>What if you jumped on Mars? How long would a dropped object fall on Neptune? Explore gravity, escape velocity, and trajectories across all eight planets.</p></section>
-<div class="sectionhead"><h2>01 / Choose a planet</h2><div class="small">Select a world to explore</div></div>
-<div id="planets" class="planets" aria-label="Choose a planet"></div>
-<div class="sectionhead"><h2>02 / Planet physics</h2><div id="selectedLabel" class="small">Earth • reference world</div></div>
-<div class="layout"><section class="card"><h3>Gravity at a glance</h3><p class="desc">Reference values at approximately the planet's cloud-top or mean radius.</p><div class="stats"><div class="stat"><div class="name">Surface gravity</div><div class="value"><span id="gStat">9.81</span><span class="unit">m/s²</span></div><div class="hint" id="gHint">1.00 × Earth's</div></div><div class="stat"><div class="name">Escape velocity</div><div class="value"><span id="escapeStat">11.19</span><span class="unit">km/s</span></div><div class="hint">Ideal launch from surface</div></div><div class="stat"><div class="name">Weight of 70 kg mass</div><div class="value"><span id="weightStat">686.7</span><span class="unit">N</span></div><div class="hint">Mass stays 70 kg</div></div><div class="stat"><div class="name">Planet mean radius</div><div class="value"><span id="radiusStat">6,371</span><span class="unit">km</span></div><div class="hint">Approximate</div></div></div><div class="note">On gas and ice giants, “surface gravity” is a conventional reference value at an atmospheric level—not a solid surface you could stand on.</div></section>
-<section class="card"><h3>Gravity lab</h3><p class="desc">Run a vertical jump or drop a ball. Idealized motion: no air resistance, constant gravity.</p><div class="controls"><div class="field"><label for="height">Drop height <strong id="heightLabel">20 m</strong></label><input id="height" type="range" min="2" max="100" value="20" step="1"></div><div class="field"><label for="jump">Jump launch speed <strong id="jumpLabel">4.0 m/s</strong></label><input id="jump" type="range" min="1" max="12" value="4" step="0.5"></div></div><div class="scene"><span id="sceneTag" class="tag">DROP • Earth</span><canvas id="scene" aria-label="Animation of a ball falling under gravity"></canvas></div><div class="btns"><button id="dropBtn" class="primary">▶ Drop object</button><button id="jumpBtn" class="secondary">↑ Jump simulation</button><button id="resetBtn" class="secondary">↺ Reset</button></div><div class="readout"><div><span id="timeName">Fall time</span><strong id="timeVal">2.02 s</strong></div><div><span id="speedName">Impact speed</span><strong id="speedVal">19.81 m/s</strong></div><div><span id="distanceName">Travel distance</span><strong id="distanceVal">20.0 m</strong></div></div><p class="helper" id="simHelper">Drop from rest at 20 meters. Change the inputs or choose a different planet.</p></section>
-<section class="card wide"><div class="row"><div><h3>Gravity comparison</h3><p class="desc">Compare all eight planets with the same scale.</p></div><select id="metric" class="metric-select" aria-label="Comparison metric"><option value="g">Surface gravity (m/s²)</option><option value="escape">Escape velocity (km/s)</option><option value="fall">20 m fall time (s)</option><option value="jump">Jump height at 4 m/s (m)</option></select></div><div id="bars" class="charts"></div></section>
-<section class="card wide"><h3>How the physics works</h3><p class="desc">Values are approximate; the simulator uses a simple, ideal physics model.</p><div class="layout"><div class="formula"><strong>Free fall from rest</strong><br><code>t = √(2h/g)</code><br><code>v = √(2gh)</code><br>h = drop height, g = gravitational acceleration</div><div class="formula"><strong>Vertical jump</strong><br><code>h_max = v₀²/(2g)</code><br><code>t_air = 2v₀/g</code><br>v₀ = launch speed, with landing at launch height</div><div class="formula"><strong>Escape velocity</strong><br><code>v_escape = √(2GM/R)</code><br>G = gravitational constant, M = planetary mass, R = radius</div><div class="formula"><strong>Weight vs. mass</strong><br><code>W = mg</code><br>Mass remains constant; weight changes with gravity.</div></div><p class="helper">Planetary mass and radius are rounded reference values. Surface gravity is calculated using GM/R², while escape velocity uses √(2GM/R). Real-world motion differs due to atmospheres, rotation, variable gravity, and terrain. The jump simulator assumes a vertical launch with the same initial speed on every planet.</p></section></div>
-<footer class="footer">GRAVITY ATLAS · Built for curiosity & education · Not intended for mission planning<br>Planetary constants are approximate reference values based on standard NASA planetary fact sheet data.</footer>
+<a class="skip" href="#planets">Skip to the planets</a>
+
+<header class="site-header">
+  <a class="brand" href="#home" aria-label="Gravity Atlas, back to top">
+    <span class="brand-name">GRAVITY ATLAS</span>
+    <span class="brand-sub">PLANETARY GRAVITY EXPLORER</span>
+  </a>
+  <nav class="nav" aria-label="Sections">
+    <a href="#planets" data-nav="1">Planets</a>
+    <a href="#planet" data-nav="2">Physics</a>
+    <a href="#lab" data-nav="3">Lab</a>
+    <a href="#compare" data-nav="4">Compare</a>
+    <a href="#method" data-nav="5">Method</a>
+  </nav>
+  <a class="pill" href="https://github.com/notivanly/Planetary-Gravity-Explorer" target="_blank" rel="noopener noreferrer">Source<svg class="ico" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9l6-6M4 3h5v5"/></svg></a>
+</header>
+
+<aside class="rail" id="rail" aria-label="Section progress">
+  <a href="#home" data-rail="0" aria-label="Home"><span class="num mono">001</span><i></i></a>
+  <a href="#planets" data-rail="1" aria-label="Choose a planet"><span class="num mono">002</span><i></i></a>
+  <a href="#planet" data-rail="2" aria-label="Planet physics"><span class="num mono">003</span><i></i></a>
+  <a href="#lab" data-rail="3" aria-label="Gravity lab"><span class="num mono">004</span><i></i></a>
+  <a href="#compare" data-rail="4" aria-label="Gravity comparison"><span class="num mono">005</span><i></i></a>
+  <a href="#method" data-rail="5" aria-label="How the physics works"><span class="num mono">006</span><i></i></a>
+</aside>
+
+<main>
+  <!-- ===== 001 HOME ===== -->
+  <section class="slide hero" id="home" data-slide data-tone="light" style="--gx:62%; --gy:36%" aria-label="Gravity Atlas">
+    <div class="stage"><canvas id="cvHero" aria-hidden="true"></canvas></div>
+    <p class="index mono"><span>001</span> / 006</p>
+    <div class="copy">
+      <h1 class="title">
+        <span class="line"><span style="--i:0">SAME UNIVERSE.</span></span>
+        <span class="line"><span style="--i:1">DIFFERENT</span></span>
+        <span class="line"><span style="--i:2">GRAVITY.</span></span>
+      </h1>
+      <p class="desc" data-r style="--d:600">What if you jumped on Mars? How long would a dropped object fall on Neptune? Explore gravity, escape velocity, and trajectories across all eight planets.</p>
+    </div>
+    <div class="foot">
+      <a class="cue" href="#planets"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2v8M2.5 6.5L6 10l3.5-3.5"/></svg>Scroll to explore</a>
+    </div>
+  </section>
+
+  <!-- ===== 002 CHOOSE A PLANET ===== -->
+  <section class="slide picker" id="planets" data-slide data-tone="dark" style="--gx:50%; --gy:70%" aria-label="Choose a planet">
+    <div class="stage"><canvas id="cvPick" aria-hidden="true"></canvas></div>
+    <div class="pk-layer" id="pkLayer" role="group" aria-label="Choose a planet"></div>
+    <p class="index mono"><span>002</span> / 006</p>
+    <div class="copy">
+      <h2 class="title">
+        <span class="line"><span style="--i:0">CHOOSE</span></span>
+        <span class="line"><span style="--i:1">A WORLD.</span></span>
+      </h2>
+      <p class="desc" data-r style="--d:450">Select a world to explore. Everything below updates to match it.</p>
+    </div>
+  </section>
+
+  <!-- ===== 003 PLANET PHYSICS ===== -->
+  <section class="slide planet" id="planet" data-slide data-tone="light" style="--gx:70%; --gy:40%" aria-label="Planet physics">
+    <div class="stage"><canvas id="cvPlanet" aria-hidden="true"></canvas></div>
+    <p class="index mono"><span>003</span> / 006</p>
+    <div class="copy">
+      <h2 class="title"><span class="line"><span id="pName" style="--i:0">Earth</span></span></h2>
+      <p class="sub" id="pSub">Earth &bull; reference world</p>
+      <p class="desc" data-r style="--d:450">Reference values at approximately the planet&rsquo;s cloud-top or mean radius.</p>
+      <dl class="stats" data-r style="--d:600">
+        <div><dt>Surface gravity</dt><dd><b id="sG"></b><small>m/s&sup2;</small></dd><em id="sGx"></em></div>
+        <div><dt>Escape velocity</dt><dd><b id="sV"></b><small>km/s</small></dd><em>Ideal launch from surface</em></div>
+        <div><dt>Weight of 70 kg mass</dt><dd><b id="sW"></b><small>N</small></dd><em>Mass stays 70 kg</em></div>
+        <div><dt>Planet mean radius</dt><dd><b id="sR"></b><small>km</small></dd><em>Approximate</em></div>
+      </dl>
+      <p class="note" data-r style="--d:750">On gas and ice giants, &ldquo;surface gravity&rdquo; is a conventional reference value at an atmospheric level, not a solid surface you could stand on.</p>
+    </div>
+  </section>
+
+  <!-- ===== 004 GRAVITY LAB ===== -->
+  <section class="slide lab" id="lab" data-slide data-tone="dark" style="--gx:68%; --gy:36%" aria-label="Gravity lab">
+    <div class="stage"><canvas id="cvLab" aria-hidden="true"></canvas></div>
+    <p class="index mono"><span>004</span> / 006</p>
+    <div class="col">
+      <div class="intro">
+        <h2 class="title">
+          <span class="line"><span style="--i:0">GRAVITY</span></span>
+          <span class="line"><span style="--i:1">LAB</span></span>
+        </h2>
+        <p class="desc" data-r style="--d:450">Run a vertical jump or drop a ball. Idealized motion: no air resistance, constant gravity.</p>
+      </div>
+      <form class="controls" id="labControls" aria-label="Gravity lab controls" onsubmit="return false" data-r style="--d:600"></form>
+      <div class="btns" id="labBtns" data-r style="--d:700">
+        <button type="button" class="btn primary" id="bDrop">Drop object</button>
+        <button type="button" class="btn primary" id="bJump">Jump simulation</button>
+        <button type="button" class="btn" id="bReset">Reset</button>
+      </div>
+      <label class="toggle" data-r style="--d:760"><input type="checkbox" id="slow"> Slow motion (0.25&times;)</label>
+    </div>
+    <dl class="hud" id="labHud" aria-live="polite">
+      <div><dt id="h1t">Fall time</dt><dd id="h1v"></dd></div>
+      <div><dt id="h2t">Impact speed</dt><dd id="h2v"></dd></div>
+      <div><dt id="h3t">Travel distance</dt><dd id="h3v"></dd></div>
+    </dl>
+  </section>
+
+  <!-- ===== 005 COMPARE ===== -->
+  <section class="slide compare" id="compare" data-slide data-tone="light" style="--gx:60%; --gy:40%" aria-label="Gravity comparison">
+    <p class="index mono"><span>005</span> / 006</p>
+    <div class="copy">
+      <h2 class="title">
+        <span class="line"><span style="--i:0">GRAVITY</span></span>
+        <span class="line"><span style="--i:1">COMPARISON</span></span>
+      </h2>
+      <p class="desc" data-r style="--d:450">Compare all eight planets with the same scale.</p>
+      <div class="tabs" id="tabs" role="tablist" aria-label="Metric" data-r style="--d:600"></div>
+    </div>
+    <div class="bars" id="bars" data-r style="--d:500"></div>
+  </section>
+
+  <!-- ===== 006 METHOD ===== -->
+  <section class="slide method" id="method" data-slide data-tone="dark" style="--gx:66%; --gy:40%" aria-label="How the physics works">
+    <p class="index mono"><span>006</span> / 006</p>
+    <div class="copy">
+      <h2 class="title">
+        <span class="line"><span style="--i:0">HOW THE</span></span>
+        <span class="line"><span style="--i:1">PHYSICS WORKS</span></span>
+      </h2>
+      <p class="desc" data-r style="--d:450">Values are approximate; the simulator uses a simple, ideal physics model.</p>
+    </div>
+    <div class="formulas" data-r style="--d:500">
+      <article class="formula"><b>Free fall from rest</b><code>t = &radic;(2h / g)<br>v = &radic;(2gh)</code><p>h = drop height, g = gravitational acceleration</p></article>
+      <article class="formula"><b>Vertical jump</b><code>h<sub>max</sub> = v&#8320;&sup2; / (2g)<br>t<sub>air</sub> = 2v&#8320; / g</code><p>v&#8320; = launch speed, with landing at launch height</p></article>
+      <article class="formula"><b>Escape velocity</b><code>v<sub>escape</sub> = &radic;(2GM / R)</code><p>G = gravitational constant, M = planetary mass, R = radius</p></article>
+      <article class="formula"><b>Weight vs. mass</b><code>W = m g</code><p>Mass remains constant; weight changes with gravity.</p></article>
+    </div>
+    <p class="fine" data-r style="--d:700">Planetary mass and radius are rounded reference values. Surface gravity is calculated using GM/R&sup2;, while escape velocity uses &radic;(2GM/R). Real-world motion differs due to atmospheres, rotation, variable gravity, and terrain. The jump simulator assumes a vertical launch with the same initial speed on every planet.</p>
+    <div class="legal"><span>GRAVITY ATLAS. Built for curiosity &amp; education. Not intended for mission planning.</span><span>Planetary constants are approximate reference values based on standard NASA planetary fact sheet data.</span></div>
+  </section>
 </main>
+
+<noscript><p style="position:fixed;inset:auto 0 0 0;z-index:200;padding:1rem;background:#fff;color:#111;text-align:center;font-size:.85rem">This explorer needs JavaScript. Please enable it to explore.</p></noscript>
+
 <script>
-'use strict';
-const G=6.67430e-11;
-const worlds=[
-{name:'Mercury',mass:3.3011e23,radius:2439.7,color:'radial-gradient(circle at 27% 25%,#c8c5bd,#817b76 62%,#47474d)'},
-{name:'Venus',mass:4.8675e24,radius:6051.8,color:'radial-gradient(circle at 30% 24%,#ffe0a6,#c68a53 65%,#664326)'},
-{name:'Earth',mass:5.97237e24,radius:6371,color:'radial-gradient(circle at 30% 25%,#7de0f1,#3776c7 41%,#40896c 56%,#183e72 85%)'},
-{name:'Mars',mass:6.4171e23,radius:3389.5,color:'radial-gradient(circle at 27% 24%,#fcb48a,#ba553a 65%,#602e31)'},
-{name:'Jupiter',mass:1.8982e27,radius:69911,color:'repeating-linear-gradient(175deg,#d8bd9f 0 8px,#ad775d 8px 13px,#e5ceaa 13px 21px,#947261 21px 25px)'},
-{name:'Saturn',mass:5.6834e26,radius:58232,color:'repeating-linear-gradient(170deg,#f2e0b2 0 8px,#c8ac7a 8px 14px,#e2cca0 14px 23px)',cls:'saturn'},
-{name:'Uranus',mass:8.6810e25,radius:25362,color:'radial-gradient(circle at 26% 22%,#d6ffff,#6abcc8 72%,#3c7b94)'},
-{name:'Neptune',mass:1.02413e26,radius:24622,color:'radial-gradient(circle at 30% 24%,#81bbff,#3159b9 67%,#162e6f)'}
-];
-for(const p of worlds){p.g=G*p.mass/(p.radius*1000)**2;p.escape=Math.sqrt(2*G*p.mass/(p.radius*1000))/1000;}
-let selected=2,mode='drop',started=false,elapsed=0,lastFrame=0,raf=0;
-const $=id=>document.getElementById(id), fmt=(v,d=2)=>Number(v).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
-const buttons=worlds.map((p,i)=>{const b=document.createElement('button');b.type='button';b.className='planet'+(i===selected?' active':'');b.setAttribute('aria-pressed',String(i===selected));b.innerHTML=`<div class="orb ${p.cls||''}" style="background:${p.color}"></div><span>${p.name}</span><em>${fmt(p.g/worlds[2].g,2)}× Earth</em>`;b.onclick=()=>{selected=i;buttons.forEach((btn,j)=>{btn.classList.toggle('active',j===i);btn.setAttribute('aria-pressed',String(j===i))});update();};$('planets').appendChild(b);return b;});
-function params(){return {h:+$('height').value,v0:+$('jump').value,g:worlds[selected].g};}
-function results(){const {h,v0,g}=params();return mode==='drop'?{duration:Math.sqrt(2*h/g),speed:Math.sqrt(2*g*h),distance:h}:{duration:2*v0/g,speed:v0,distance:v0*v0/(2*g)};}
-function update(){const p=worlds[selected],{h,v0}=params();$('selectedLabel').textContent=p.name+' • '+fmt(p.g/worlds[2].g,2)+'× Earth gravity';$('gStat').textContent=fmt(p.g,2);$('gHint').textContent=fmt(p.g/worlds[2].g,2)+' × Earth\'s';$('escapeStat').textContent=fmt(p.escape,2);$('weightStat').textContent=fmt(70*p.g,1);$('radiusStat').textContent=fmt(p.radius,0);$('heightLabel').textContent=h+' m';$('jumpLabel').textContent=fmt(v0,1)+' m/s';$('sceneTag').textContent=(mode==='drop'?'DROP':'JUMP')+' • '+p.name;const r=results();$('timeName').textContent=mode==='drop'?'Fall time':'Total airtime';$('speedName').textContent=mode==='drop'?'Impact speed':'Launch speed';$('distanceName').textContent=mode==='drop'?'Drop height':'Peak jump height';$('timeVal').textContent=fmt(r.duration,2)+' s';$('speedVal').textContent=fmt(r.speed,2)+' m/s';$('distanceVal').textContent=fmt(r.distance,2)+' m';$('simHelper').textContent=mode==='drop'?`Released from rest at ${h} m on ${p.name}, ignoring atmospheric drag.`:`Launched vertically at ${fmt(v0,1)} m/s on ${p.name}, landing at the takeoff height.`;resetAnimation();renderBars();}
-$('height').oninput=update;$('jump').oninput=update;$('metric').onchange=renderBars;
-function resetAnimation(){started=false;elapsed=0;lastFrame=0;cancelAnimationFrame(raf);draw(0);}
-$('resetBtn').onclick=resetAnimation;
-$('dropBtn').onclick=()=>{mode='drop';update();play();};$('jumpBtn').onclick=()=>{mode='jump';update();play();};
-function play(){resetAnimation();started=true;raf=requestAnimationFrame(tick)}
-function tick(timestamp){if(!started)return;if(!lastFrame)lastFrame=timestamp;elapsed+=(timestamp-lastFrame)/1000;lastFrame=timestamp;const total=results().duration;draw(Math.min(elapsed,total));if(elapsed<total)raf=requestAnimationFrame(tick);else started=false;}
-function renderBars(){const metric=$('metric').value;const values=worlds.map(p=>metric==='g'?p.g:metric==='escape'?p.escape:metric==='fall'?Math.sqrt(40/p.g):16/(2*p.g));const max=Math.max(...values);$('bars').replaceChildren(...worlds.map((p,i)=>{const row=document.createElement('div');row.className='barline'+(i===selected?' on':'');const name=document.createElement('strong');name.textContent=p.name;const track=document.createElement('div');track.className='bartrack';const fill=document.createElement('div');fill.className='barfill';fill.style.width=(values[i]/max*100)+'%';track.appendChild(fill);const value=document.createElement('span');value.className='end';value.textContent=fmt(values[i],2);row.append(name,track,value);return row;}));}
-const canvas=$('scene'),ctx=canvas.getContext('2d');
-function draw(t){if(!ctx)return;const bounds=canvas.getBoundingClientRect();if(!bounds.width||!bounds.height)return;const ratio=Math.min(window.devicePixelRatio||1,2),w=bounds.width,ht=bounds.height;const cw=Math.round(w*ratio),ch=Math.round(ht*ratio);if(canvas.width!==cw||canvas.height!==ch){canvas.width=cw;canvas.height=ch;}ctx.setTransform(ratio,0,0,ratio,0,0);ctx.clearRect(0,0,w,ht);
-const {h,v0,g}=params(),total=results().duration,ground=ht-39,top=37,range=ground-top;const yProgress=mode==='drop'?Math.max(0,Math.min(1,(0.5*g*t*t)/h)):Math.max(0,Math.min(1,(v0*t-0.5*g*t*t)/Math.max(0.001,v0*v0/(2*g))));const y=mode==='drop'?top+range*yProgress:ground-range*yProgress;const x=w*.51;
-for(let i=0;i<34;i++){const sx=(i*71+29)%Math.floor(w),sy=(i*53+19)%Math.floor(ht*.75);ctx.fillStyle='#d5e3ff55';ctx.fillRect(sx,sy,i%4===0?2:1,i%4===0?2:1)}
-ctx.strokeStyle='#5a729a55';ctx.setLineDash([4,5]);ctx.beginPath();ctx.moveTo(20,top);ctx.lineTo(w-20,top);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#8fb2f6';ctx.font='11px system-ui';ctx.fillText(mode==='drop'?`${h} m starting height`:'Peak height '+fmt(v0*v0/(2*g),2)+' m',17,top-9);
-ctx.fillStyle='#293f54';ctx.fillRect(0,ground+13,w,ht-ground-13);ctx.fillStyle='#527b87';ctx.fillRect(0,ground+13,w,3);for(let i=0;i<12;i++){ctx.fillStyle='#789aac33';ctx.fillRect(i*w/12+5,ground+23,18,2)}
-ctx.strokeStyle='#7faaff88';ctx.setLineDash([5,6]);ctx.beginPath();ctx.moveTo(x,mode==='drop'?top:ground);ctx.lineTo(x,y);ctx.stroke();ctx.setLineDash([]);const grad=ctx.createRadialGradient(x-7,y-8,2,x,y,16);grad.addColorStop(0,'#fff9dd');grad.addColorStop(.3,'#ffd39b');grad.addColorStop(1,'#e4915a');ctx.shadowColor='#ffb66b77';ctx.shadowBlur=18;ctx.fillStyle=grad;ctx.beginPath();ctx.arc(x,y,14,0,2*Math.PI);ctx.fill();ctx.shadowBlur=0;
-ctx.fillStyle='#c5d8fc';ctx.font='12px system-ui';ctx.fillText(`t = ${fmt(t,2)} s`,15,ht-15);const velocity=mode==='drop'?g*t:v0-g*t;ctx.fillText(`v = ${fmt(velocity,2)} m/s`,w-118,ht-15);
-}
-new ResizeObserver(()=>draw(Math.min(elapsed,results().duration))).observe(canvas);update();
+(function () {
+  'use strict';
+  var TAU = Math.PI * 2;
+  function clamp(v, a, b) { return Math.min(b, Math.max(a, v)); }
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function smooth(t) { t = clamp(t, 0, 1); return t * t * (3 - 2 * t); }
+  function W(a) { return 'rgba(255,255,255,' + a + ')'; }
+  function Ac(a) { return 'rgba(255,79,46,' + a + ')'; }
+  var MONO = '"Martian Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace';
+  var REDUCED = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  function $(s) { return document.querySelector(s); }
+  function txt(c, s, x, y, size, col, al) { c.font = '500 ' + size + 'px ' + MONO; c.fillStyle = col; c.textAlign = al || 'left'; c.textBaseline = 'alphabetic'; c.fillText(s, x, y); }
+  function arrow(c, x1, y1, x2, y2, head) {
+    head = head || 6; var a = Math.atan2(y2 - y1, x2 - x1);
+    c.beginPath(); c.moveTo(x1, y1); c.lineTo(x2, y2); c.stroke();
+    c.beginPath(); c.moveTo(x2, y2); c.lineTo(x2 - head * Math.cos(a - .42), y2 - head * Math.sin(a - .42)); c.lineTo(x2 - head * Math.cos(a + .42), y2 - head * Math.sin(a + .42)); c.closePath(); c.fill();
+  }
+  function rng(seed) { var a = seed >>> 0; return function () { a = (a + 0x6d2b79f5) | 0; var t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function noise3(seed) {
+    var r = rng(seed), p = new Uint8Array(512), g = new Float32Array(256), i, j, tmp;
+    for (i = 0; i < 256; i++) { p[i] = i; g[i] = r(); }
+    for (i = 255; i > 0; i--) { j = Math.floor(r() * (i + 1)); tmp = p[i]; p[i] = p[j]; p[j] = tmp; }
+    for (i = 0; i < 256; i++) p[i + 256] = p[i];
+    function h(x, y, z) { return g[p[p[p[x & 255] + (y & 255)] + (z & 255)]]; }
+    function s(t) { return t * t * (3 - 2 * t); }
+    return function (x, y, z) {
+      var xi = Math.floor(x), yi = Math.floor(y), zi = Math.floor(z), xf = s(x - xi), yf = s(y - yi), zf = s(z - zi);
+      var a = lerp(lerp(h(xi, yi, zi), h(xi + 1, yi, zi), xf), lerp(h(xi, yi + 1, zi), h(xi + 1, yi + 1, zi), xf), yf);
+      var b = lerp(lerp(h(xi, yi, zi + 1), h(xi + 1, yi, zi + 1), xf), lerp(h(xi, yi + 1, zi + 1), h(xi + 1, yi + 1, zi + 1), xf), yf);
+      return lerp(a, b, zf);
+    };
+  }
+  function fmtN(v, d) { return v.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d }); }
+
+  /* ======================================================================
+     PLANETARY DATA   mu = GM (m^3/s^2), R = reference radius (km)
+     g = GM / R^2 and v_escape = sqrt(2 GM / R) are computed from these.
+     Rocky worlds use the mean / equatorial radius; the giants use the
+     1-bar "cloud-top" level, which is what the usual reference gravities
+     (24.79, 10.44, 8.87, 11.15 m/s^2) are quoted at.
+     Earth's GM is rounded so that Earth reads exactly 9.81 m/s^2.
+     ====================================================================== */
+  var PL = [
+    { id: 'mercury', name: 'Mercury', type: 'rocky world', mu: 2.2032e13, R: 2439.7 },
+    { id: 'venus',   name: 'Venus',   type: 'rocky world', mu: 3.24859e14, R: 6051.8 },
+    { id: 'earth',   name: 'Earth',   type: 'reference world', mu: 9.81 * Math.pow(6371000, 2), R: 6371 },
+    { id: 'mars',    name: 'Mars',    type: 'rocky world', mu: 4.282837e13, R: 3396.2 },
+    { id: 'jupiter', name: 'Jupiter', type: 'gas giant', mu: 1.26687e17, R: 71492 },
+    { id: 'saturn',  name: 'Saturn',  type: 'gas giant', mu: 3.7931e16, R: 60268 },
+    { id: 'uranus',  name: 'Uranus',  type: 'ice giant', mu: 5.794e15, R: 25559 },
+    { id: 'neptune', name: 'Neptune', type: 'ice giant', mu: 6.8351e15, R: 24764 }
+  ];
+  PL.forEach(function (p, i) {
+    p.i = i; p.g = p.mu / Math.pow(p.R * 1000, 2); p.v = Math.sqrt(2 * p.mu / (p.R * 1000)) / 1000; p.rel = p.R / 6371;
+  });
+  var gE = PL[2].g, sel = 2;
+  var S = { drop: 20, jump: 4, slow: false };
+
+  /* ======================================================================
+     canvas host: sizing, pixel ratio, visibility, pointer
+     ====================================================================== */
+  var hosts = [], PT = { x: -1, y: -1, has: false };
+  window.addEventListener('pointermove', function (e) { PT.x = e.clientX; PT.y = e.clientY; PT.has = true; }, { passive: true });
+  function Host(el, draw, onResize) {
+    this.el = el; this.ctx = el.getContext('2d'); this.draw = draw; this.onResize = onResize; this.stage = el.parentNode;
+    this.t = 0; this.last = 0; this.vis = false; this.w = 0; this.h = 0; this.dpr = 1; this.needs = true;
+    this.m = { x: -9999, y: -9999, on: 0 };
+    var self = this; this.resize();
+    if (window.ResizeObserver) new ResizeObserver(function () { self.resize(); }).observe(this.stage);
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { self.vis = es[0].isIntersecting; self.last = 0; self.needs = true; }, { rootMargin: '8% 0px' }).observe(el); else this.vis = true;
+    hosts.push(this);
+  }
+  Host.prototype.resize = function () {
+    var r = this.stage.getBoundingClientRect(), w = Math.max(1, Math.round(r.width)), h = Math.max(1, Math.round(r.height));
+    var dpr = Math.min(window.devicePixelRatio || 1, 2); while (w * h * dpr * dpr > 6.5e6 && dpr > 1) dpr -= .25;
+    this.w = w; this.h = h; this.dpr = dpr; this.el.width = Math.round(w * dpr); this.el.height = Math.round(h * dpr); this.el.style.width = w + 'px'; this.el.style.height = h + 'px';
+    if (this.onResize) this.onResize(w, h); this.needs = true;
+  };
+  Host.prototype.render = function (dt) {
+    var c = this.ctx; c.setTransform(this.dpr, 0, 0, this.dpr, 0, 0); c.clearRect(0, 0, this.w, this.h);
+    var r = this.el.getBoundingClientRect(), m = this.m, inside = PT.has && PT.x >= r.left && PT.x <= r.right && PT.y >= r.top && PT.y <= r.bottom;
+    m.x = inside ? (PT.x - r.left) * (this.w / r.width) : -9999; m.y = inside ? (PT.y - r.top) * (this.h / r.height) : -9999;
+    m.on += ((inside ? 1 : 0) - m.on) * (1 - Math.exp(-dt * 6));
+    this.draw(c, this.w, this.h, this.t, dt, m);
+  };
+  function invalidate() { hosts.forEach(function (h) { h.needs = true; }); }
+  var lastT = 0;
+  function loop(now) {
+    requestAnimationFrame(loop);
+    var dt = lastT ? Math.min(.05, (now - lastT) / 1000) : .016; lastT = now;
+    for (var i = 0; i < hosts.length; i++) {
+      var h = hosts[i]; if (!h.vis) continue;
+      if (REDUCED) { if (h.needs) { h.t += .5; h.needs = false; h.render(0); } }
+      else { h.t += dt; h.render(dt); h.needs = false; }
+    }
+  }
+
+  /* ======================================================================
+     DOT-MATRIX PLANETS
+     ====================================================================== */
+  function rotX(a) { var c = Math.cos(a), s = Math.sin(a); return [1, 0, 0, 0, c, -s, 0, s, c]; }
+  function rotY(a) { var c = Math.cos(a), s = Math.sin(a); return [c, 0, s, 0, 1, 0, -s, 0, c]; }
+  function rotZ(a) { var c = Math.cos(a), s = Math.sin(a); return [c, -s, 0, s, c, 0, 0, 0, 1]; }
+  function mul(a, b) { var o = new Array(9), i, j; for (i = 0; i < 3; i++) for (j = 0; j < 3; j++) o[i * 3 + j] = a[i * 3] * b[j] + a[i * 3 + 1] * b[3 + j] + a[i * 3 + 2] * b[6 + j]; return o; }
+
+  var TILT = { mercury: .03, venus: .05, earth: .41, mars: .44, jupiter: .05, saturn: .47, uranus: 1.71, neptune: .49 };
+  var RINGS = {
+    saturn: [[1.28, .3], [1.36, .45], [1.44, .5], [1.52, .5], [1.66, .62], [1.74, .7], [1.82, .7], [1.9, .6], [2.0, .4], [2.14, .25]],
+    uranus: [[1.55, .22], [1.7, .26]]
+  };
+  function makeSphere(p, N) {
+    var noise = noise3(100 + p.i * 17), rand = rng(200 + p.i), pts = new Float32Array(N * 3), v = new Float32Array(N), hot = new Float32Array(N), vals = new Float32Array(N), i, o;
+    function fbm(x, y, z) { var n = 0, a = .5, f = 1, k; for (k = 0; k < 4; k++) { n += a * noise(x * f, y * f, z * f); a *= .5; f *= 2.05; } return n; }
+    for (i = 0; i < N; i++) {
+      var y = 1 - (i + .5) / N * 2, r = Math.sqrt(1 - y * y), th = i * 2.399963229728653, x = Math.cos(th) * r, z = Math.sin(th) * r;
+      pts[3 * i] = x; pts[3 * i + 1] = y; pts[3 * i + 2] = z;
+      var lat = Math.asin(y), lon = Math.atan2(z, x), turb = fbm(x * 2.2, y * 2.2, z * 2.2), band, d;
+      switch (p.id) {
+        case 'earth': vals[i] = fbm(x * 1.7 + 3.1, y * 1.7 + 1.7, z * 1.7 + 9.2); break;
+        case 'mars': v[i] = .3 + .7 * fbm(x * 2.2 + 1, y * 2.2 + 4, z * 2.2 + 7); hot[i] = 1; if (Math.abs(y) > .93) { v[i] = 1; hot[i] = 0; } break;
+        case 'mercury': o = noise(x * 9, y * 9, z * 9); v[i] = clamp(.18 + 1.5 * o * o, 0, 1); break;
+        case 'venus': v[i] = .5 + .4 * fbm(x * 1.2 + 2, y * 3.2, z * 1.2 + 5); break;
+        case 'jupiter':
+          band = .5 + .5 * Math.sin(lat * 14 + turb * 3.2); v[i] = .22 + .7 * band;
+          d = Math.hypot(lat + .4, Math.atan2(Math.sin(lon - .8), Math.cos(lon - .8)) * Math.cos(lat) * .6);
+          if (d < .17) { v[i] = .95; hot[i] = 1 - d / .17; } break;
+        case 'saturn': band = .5 + .5 * Math.sin(lat * 11 + turb * 1.6); v[i] = .35 + .45 * band; break;
+        case 'uranus': v[i] = .55 + .12 * turb + (Math.abs(y) > .86 ? .25 : 0); break;
+        case 'neptune':
+          band = .5 + .5 * Math.sin(lat * 9 + turb * 2.4); v[i] = .3 + .5 * band;
+          d = Math.hypot(lat + .35, Math.atan2(Math.sin(lon - 2.2), Math.cos(lon - 2.2)) * Math.cos(lat) * .6); if (d < .13) v[i] *= .35; break;
+      }
+    }
+    if (p.id === 'earth') {
+      var sorted = Array.prototype.slice.call(vals).sort(function (a, b) { return a - b; }), thr = sorted[Math.floor(N * .62)];
+      for (i = 0; i < N; i++) v[i] = vals[i] > thr ? .78 + .22 * rand() : .2;
+    }
+    return { N: N, pts: pts, v: v, hot: hot, tilt: TILT[p.id], rings: RINGS[p.id] || null };
+  }
+  // three levels of detail, built on demand: thinning a Fibonacci sphere by skipping points makes moire spirals
+  function getSphere(p, want) {
+    var N = want <= 1500 ? 1500 : (want <= 6000 ? 6000 : 24000);
+    p.lod = p.lod || {}; if (!p.lod[N]) p.lod[N] = makeSphere(p, N);
+    return p.lod[N];
+  }
+  PL.forEach(function (p) { getSphere(p, 1500); getSphere(p, 6000); });
+  getSphere(PL[2], 24000);
+
+  /* draws a spinning dot-matrix planet; wantN = how many dots to use */
+  function drawPlanet(c, p, cx, cy, R, spin, alpha, wantN, showRings) {
+    var S_ = getSphere(p, wantN), e = mul(rotX(.3), mul(rotZ(S_.tilt), rotY(spin))), er = mul(rotX(.3), rotZ(S_.tilt));
+    var Lx = -.55, Ly = .55, Lz = .63, i, X, Y, Z, px, py, pz, lit, al, sz = clamp(R / 70, 1.1, 3.2), step = 1;
+    var ring = showRings && S_.rings, k, rr, th, n2, q;
+    c.globalAlpha = alpha;
+    function ringPts(front) {
+      for (k = 0; k < ring.length; k++) {
+        rr = ring[k][0]; n2 = Math.min(700, Math.round(TAU * rr * R / (sz * 2.6)));
+        for (q = 0; q < n2; q++) {
+          th = q / n2 * TAU; X = rr * Math.cos(th); Z = rr * Math.sin(th);
+          px = er[0] * X + er[2] * Z; py = er[3] * X + er[5] * Z; pz = er[6] * X + er[8] * Z;
+          if ((pz >= 0) !== front) continue;
+          if (pz < 0 && px * px + py * py < 1) continue;
+          c.globalAlpha = alpha * ring[k][1] * (front ? 1 : .7); c.fillStyle = '#fff';
+          c.fillRect(cx + px * R - .6, cy - py * R - .6, sz * .9, sz * .9);
+        }
+      }
+    }
+    if (ring) ringPts(false);
+    c.globalAlpha = alpha;
+    var base = c.createRadialGradient(cx - R * .38, cy - R * .42, R * .05, cx, cy, R);
+    base.addColorStop(0, 'rgba(150,152,158,0.30)'); base.addColorStop(.55, 'rgba(46,47,51,0.62)'); base.addColorStop(1, 'rgba(6,6,8,0.90)');
+    c.fillStyle = base; c.beginPath(); c.arc(cx, cy, R, 0, TAU); c.fill();
+    var color = 0;   // 0 = white, 1 = accent
+    c.fillStyle = '#fff';
+    for (i = 0; i < S_.N; i += step) {
+      X = S_.pts[3 * i]; Y = S_.pts[3 * i + 1]; Z = S_.pts[3 * i + 2];
+      pz = e[6] * X + e[7] * Y + e[8] * Z; if (pz < .03) continue;
+      px = e[0] * X + e[1] * Y + e[2] * Z; py = e[3] * X + e[4] * Y + e[5] * Z;
+      lit = px * Lx + py * Ly + pz * Lz; if (lit < 0) lit = 0;
+      al = (.1 + .9 * lit) * (.3 + .7 * pz) * (.2 + .8 * S_.v[i]);
+      var hot = S_.hot[i] > .3 ? 1 : 0; if (hot !== color) { c.fillStyle = hot ? 'rgb(255,79,46)' : '#fff'; color = hot; }
+      c.globalAlpha = alpha * Math.min(1, al * 1.25);
+      c.fillRect(cx + px * R - sz / 2, cy - py * R - sz / 2, sz, sz);
+    }
+    c.globalAlpha = alpha;
+    var rim = c.createLinearGradient(cx - R, cy - R, cx + R * .3, cy + R * .3);
+    rim.addColorStop(0, 'rgba(255,255,255,0.6)'); rim.addColorStop(.55, 'rgba(255,255,255,0.08)'); rim.addColorStop(1, 'rgba(255,255,255,0)');
+    c.strokeStyle = rim; c.lineWidth = 1.3; c.beginPath(); c.arc(cx, cy, R, 0, TAU); c.stroke();
+    if (ring) ringPts(true);
+    c.globalAlpha = 1;
+  }
+
+  /* ======================================================================
+     HERO: all eight planets in a space-time well
+     ====================================================================== */
+  var HP = [{ r: .36, m: .016, s: .012 }, { r: .52, m: .021, s: .017 }, { r: .7, m: .023, s: .018 }, { r: .9, m: .018, s: .014 }, { r: 1.24, m: .08, s: .043 }, { r: 1.54, m: .06, s: .037 }, { r: 1.8, m: .035, s: .026 }, { r: 2.04, m: .034, s: .025 }];
+  var HPh = [.4, 2.3, 4.1, 5.5, 1.2, 3.1, 5.0, .1];
+  var NL = 31, NS = 74, GH = 2.35;
+  var hseg = { x0: new Float32Array(NL * 2 * NS), y0: new Float32Array(NL * 2 * NS), x1: new Float32Array(NL * 2 * NS), y1: new Float32Array(NL * 2 * NS), b: new Uint8Array(NL * 2 * NS) };
+  var heroHit = [];
+  function heroDraw(c, w, h, t, dt, m) {
+    var compact = w < 860, s = Math.min(h * .95, w * .5), pxm = compact ? w * .24 : s * .4, cx = compact ? w * .5 : w * .68, cy = compact ? h * .66 : h * .46;
+    var yaw = .5 + t * .04 + (m.x > -9000 ? (m.x / w - .5) * .3 : 0), pitch = .62;
+    var cyw = Math.cos(yaw), syw = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch), dist = 6.6;
+    function P3(x, y, z) { var x1 = x * cyw + z * syw, z1 = -x * syw + z * cyw, y2 = y * cp - z1 * sp, z2 = y * sp + z1 * cp, k = dist / (dist - z2); return { x: cx + x1 * k * pxm, y: cy - y2 * k * pxm, z: z2, k: k }; }
+    var pos = HP.map(function (q, i) { var a = HPh[i] + t * .38 / Math.pow(q.r, 1.5); return [Math.cos(a) * q.r, Math.sin(a) * q.r]; }), i, j, n = 0, ln;
+    function surf(x, z) { var y = -.3 / Math.sqrt(x * x + z * z + .05), k; for (k = 0; k < 8; k++) { var dx = x - pos[k][0], dz = z - pos[k][1]; y -= HP[k].m / Math.sqrt(dx * dx + dz * dz + .012); } return y; }
+    for (ln = 0; ln < NL; ln++) {
+      var c0 = -GH + 2 * GH * ln / (NL - 1);
+      for (var dir = 0; dir < 2; dir++) {
+        var prev = null;
+        for (j = 0; j <= NS; j++) {
+          var s0 = -GH + 2 * GH * j / NS, gx = dir ? c0 : s0, gz = dir ? s0 : c0, gy = surf(gx, gz), p = P3(gx, gy, gz);
+          if (prev) { hseg.x0[n] = prev.x; hseg.y0[n] = prev.y; hseg.x1[n] = p.x; hseg.y1[n] = p.y; var depth = -gy; hseg.b[n] = depth < .15 ? 0 : depth < .4 ? 1 : depth < .9 ? 2 : 3; n++; }
+          prev = p;
+        }
+      }
+    }
+    var al = [.13, .26, .42, .7], bk;
+    c.lineWidth = 1;
+    for (bk = 0; bk < 4; bk++) { c.strokeStyle = bk === 3 ? Ac(.55) : W(al[bk]); c.beginPath(); for (i = 0; i < n; i++) if (hseg.b[i] === bk) { c.moveTo(hseg.x0[i], hseg.y0[i]); c.lineTo(hseg.x1[i], hseg.y1[i]); } c.stroke(); }
+
+    var sun = P3(0, surf(0, 0) + .06, 0), sr = s * .045 * sun.k, sg = c.createRadialGradient(sun.x, sun.y, 0, sun.x, sun.y, sr * 4);
+    sg.addColorStop(0, 'rgba(255,236,224,1)'); sg.addColorStop(.12, Ac(.95)); sg.addColorStop(.35, Ac(.28)); sg.addColorStop(1, Ac(0));
+    c.fillStyle = sg; c.beginPath(); c.arc(sun.x, sun.y, sr * 4, 0, TAU); c.fill();
+
+    var scr = HP.map(function (q, k) { var pp = P3(pos[k][0], surf(pos[k][0], pos[k][1]) + .02, pos[k][1]); pp.k2 = k; return pp; });
+    heroHit = scr.map(function (q) { return { x: q.x, y: q.y, i: q.k2 }; });
+    var hover = -1, best = 46;
+    scr.forEach(function (q) { var d = Math.hypot(q.x - m.x, q.y - m.y); if (d < best) { best = d; hover = q.k2; } });
+    scr.slice().sort(function (a, b) { return a.z - b.z; }).forEach(function (q) {
+      var k = q.k2, pl = PL[k], r = Math.max(4, s * HP[k].s * q.k * 1.55), on = k === sel || k === hover;
+      c.fillStyle = '#121315'; c.beginPath(); c.arc(q.x, q.y, r + .5, 0, TAU); c.fill();
+      var gr = c.createRadialGradient(q.x - r * .4, q.y - r * .45, r * .1, q.x, q.y, r);
+      if (pl.id === 'mars') { gr.addColorStop(0, 'rgba(255,170,140,1)'); gr.addColorStop(.55, Ac(.95)); gr.addColorStop(1, 'rgba(60,16,8,1)'); }
+      else { var tone = [.55, .8, .9, 0, .75, .7, .65, .6][k], vv = Math.round(255 * tone); gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(.5, 'rgba(' + Math.round(vv * .62) + ',' + Math.round(vv * .63) + ',' + Math.round(vv * .66) + ',1)'); gr.addColorStop(1, 'rgba(14,14,16,1)'); }
+      c.fillStyle = gr; c.beginPath(); c.arc(q.x, q.y, r, 0, TAU); c.fill();
+      if (k === 5) { c.strokeStyle = W(.55); c.lineWidth = 1; c.beginPath(); c.ellipse(q.x, q.y, r * 1.9, r * .55, -.35, 0, TAU); c.stroke(); }
+      if (on) { c.strokeStyle = k === sel ? Ac(.95) : W(.9); c.lineWidth = 1.1; c.beginPath(); c.arc(q.x, q.y, r + 7, 0, TAU); c.stroke(); }
+      var right = q.x < w - 150, d2 = right ? 1 : -1, lx = q.x + d2 * (r + 14), ly = q.y - r - 14;
+      c.strokeStyle = W(on ? .6 : .26); c.lineWidth = 1; c.beginPath(); c.moveTo(q.x + d2 * (r * .7 + 3), q.y - r * .7 - 3); c.lineTo(lx, ly); c.lineTo(lx + d2 * 10, ly); c.stroke();
+      var tx = lx + d2 * 14, al2 = right ? 'left' : 'right';
+      txt(c, pl.name, tx, ly + 3, 10, W(on ? 1 : .55), al2);
+      if (on) txt(c, fmtN(pl.g, 2) + ' m/s\u00b2', tx, ly + 16, 9, k === sel ? Ac(1) : W(.6), al2);
+    });
+    heroHover = hover;
+  }
+  var heroHover = -1;
+
+  /* ======================================================================
+     PICKER: the eight worlds in a row
+     ====================================================================== */
+  var pick = { pos: [], hover: -1 };
+  function pickLayout(w, h) {
+    var compact = w < 860, pad = Math.max(22, w * .034), out = [], i;
+    if (!compact) {
+      var rel = PL.map(function (p) { return Math.pow(p.rel, .42); }), ringF = [1, 1, 1, 1, 1, 2.2, 1.15, 1], sum = 0;
+      rel.forEach(function (r, k) { sum += 2 * r * ringF[k]; });
+      var base = (w - 2 * pad - 130) / (sum + 3.85), x = pad + 30;
+      PL.forEach(function (p, k) {
+        var r = rel[k] * base, half = r * ringF[k], cx = x + half;
+        out.push({ x: cx, y: h * .66 + Math.sin(k * .9) * h * .045, r: r }); x += 2 * half + base * .55;
+      });
+    } else {
+      var cellW = (w - 2 * pad) / 4;
+      PL.forEach(function (p, k) { out.push({ x: pad + cellW * (k % 4 + .5), y: h * (k < 4 ? .6 : .8), r: cellW * .125 * Math.pow(p.rel, .42) }); });
+    }
+    return out;
+  }
+  var pickHost, pkBtns = [];
+  function buildPickerButtons() {
+    var layer = $('#pkLayer');
+    PL.forEach(function (p, k) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'pk'; b.innerHTML = '<span>' + p.name + '</span>'; b.setAttribute('aria-pressed', k === sel ? 'true' : 'false');
+      b.addEventListener('click', function () { select(k); });
+      b.addEventListener('mouseenter', function () { pick.hover = k; }); b.addEventListener('mouseleave', function () { pick.hover = -1; });
+      b.addEventListener('focus', function () { pick.hover = k; }); b.addEventListener('blur', function () { pick.hover = -1; });
+      layer.appendChild(b); pkBtns.push(b);
+    });
+  }
+  function placePickerButtons() { pick.pos.forEach(function (q, k) { var b = pkBtns[k]; if (!b) return; var d = Math.max(34, q.r * 2 + 10); b.style.left = q.x + 'px'; b.style.top = q.y + 'px'; b.style.width = d + 'px'; b.style.height = d + 'px'; }); }
+  function pickDraw(c, w, h, t, dt, m) {
+    var compact = w < 860, i;
+    pick.pos.forEach(function (q, k) {
+      var p = PL[k], on = k === sel, hv = k === pick.hover, a = on ? 1 : (hv ? .95 : .72), R = q.r * (hv ? 1.05 : 1);
+      drawPlanet(c, p, q.x, q.y, R, t * (.12 + .05 * k % 3) + k, a, (compact || R < 70) ? 1500 : 6000, true);
+      if (on) { c.strokeStyle = Ac(.9); c.lineWidth = 1.2; c.beginPath(); c.arc(q.x, q.y, q.r + 11, 0, TAU); c.stroke(); }
+      var ly = q.y + (p.rings || p.id === 'saturn' ? q.r * 1.0 : q.r) + (compact ? 22 : 30);
+      txt(c, p.name, q.x, ly, compact ? 9 : 11, W(on || hv ? 1 : .6), 'center');
+      if (!compact) txt(c, fmtN(p.g, 2) + ' m/s\u00b2', q.x, ly + 15, 9, on ? Ac(1) : W(.38), 'center');
+    });
+    // guide line through the row
+    if (!compact) { c.strokeStyle = W(.1); c.lineWidth = 1; c.setLineDash([2, 6]); c.beginPath(); c.moveTo(0, h * .66 + 1); c.lineTo(w, h * .66 + 1); c.stroke(); c.setLineDash([]); }
+  }
+
+  /* ======================================================================
+     PLANET PANEL: large globe with gravity vectors
+     ====================================================================== */
+  var fade = 1;
+  function planetDraw(c, w, h, t, dt, m) {
+    var compact = w < 860, p = PL[sel], R = compact ? Math.min(w * .42, h * .24) : Math.min(h * .5, w * .3), cx = compact ? w * .5 : w * .72, cy = compact ? h * .8 : h * .54;
+    if (fade < 1) fade = Math.min(1, fade + dt * 2.2);
+    var e = smooth(fade), sc = lerp(.92, 1, e);
+    drawPlanet(c, p, cx, cy, R * sc, t * .12 + sel, e, compact ? 6000 : 24000, true);
+    // gravity vectors: inward arrows whose length scales with g
+    var n = 14, r0 = R * (p.id === 'saturn' ? 2.35 : 1.28), len = 14 + Math.sqrt(p.g) * 9, k;
+    c.strokeStyle = Ac(.9 * e); c.fillStyle = Ac(.9 * e); c.lineWidth = 1.3;
+    for (k = 0; k < n; k++) {
+      var a = k / n * TAU + .2, x1 = cx + Math.cos(a) * r0, y1 = cy + Math.sin(a) * r0, x2 = cx + Math.cos(a) * (r0 - len * (R / 300 > .5 ? 1 : .6)), y2 = cy + Math.sin(a) * (r0 - len * (R / 300 > .5 ? 1 : .6));
+      if (x1 < -20 || x1 > w + 20 || y1 < -20 || y1 > h + 20) continue;
+      arrow(c, x1, y1, x2, y2, 5);
+    }
+    var ly0 = Math.max(30, cy - R - 26);
+    txt(c, 'g = ' + fmtN(p.g, 2) + ' m/s\u00b2', cx, ly0, 11, Ac(1), 'center');
+    txt(c, '\u00d7 ' + fmtN(p.g / gE, 2) + ' Earth', cx, ly0 + 14, 9, W(.55), 'center');
+  }
+
+  /* ======================================================================
+     GRAVITY LAB: drop / jump, strobe-light trail
+     ====================================================================== */
+  var LAB = { mode: 'drop', phase: 'idle', t: 0, ghosts: [], next: 0, flash: 0, geo: null };
+  function labInfo() {
+    var p = PL[sel], g = p.g;
+    if (LAB.mode === 'drop') return { T: Math.sqrt(2 * S.drop / g), v: Math.sqrt(2 * g * S.drop), g: g };
+    return { T: 2 * S.jump / g, hmax: S.jump * S.jump / (2 * g), g: g };
+  }
+  function resetLab() { LAB.phase = 'idle'; LAB.t = 0; LAB.ghosts = []; LAB.next = 0; LAB.flash = 0; updateLabHud(); setModeBtns(); }
+  function runLab(mode) {
+    LAB.mode = mode; LAB.phase = 'running'; LAB.t = 0; LAB.ghosts = []; LAB.next = 0; LAB.flash = 0; updateLabHud(); setModeBtns();
+    if (REDUCED) { LAB.t = labInfo().T; LAB.phase = 'done'; for (var k = 0; k <= 16; k++) LAB.ghosts.push(labInfo().T * k / 16); updateLabHud(); invalidate(); }
+  }
+  function setModeBtns() { $('#bDrop').classList.toggle('is-on', LAB.mode === 'drop' && LAB.phase !== 'idle'); $('#bJump').classList.toggle('is-on', LAB.mode === 'jump' && LAB.phase !== 'idle'); }
+  function updateLabHud() {
+    var L = labInfo(), done = LAB.phase === 'done';
+    if (LAB.mode === 'drop') { $('#h1t').textContent = 'Fall time'; $('#h1v').textContent = L.T.toFixed(2) + ' s'; $('#h2t').textContent = 'Impact speed'; $('#h2v').textContent = L.v.toFixed(2) + ' m/s'; $('#h3t').textContent = 'Travel distance'; $('#h3v').textContent = S.drop.toFixed(1) + ' m'; }
+    else { $('#h1t').textContent = 'Peak height'; $('#h1v').textContent = L.hmax.toFixed(2) + ' m'; $('#h2t').textContent = 'Air time'; $('#h2v').textContent = L.T.toFixed(2) + ' s'; $('#h3t').textContent = 'Launch speed'; $('#h3v').textContent = S.jump.toFixed(1) + ' m/s'; }
+    $('#labHud').classList.toggle('done', done);
+  }
+  function niceStep(pxPerM) { var s = [.1, .2, .5, 1, 2, 5, 10, 20, 50], i; for (i = 0; i < s.length; i++) if (s[i] * pxPerM >= 34) return s[i]; return 100; }
+  function labDraw(c, w, h, t, dt, m) {
+    var compact = w < 860, p = PL[sel], L = labInfo(), g = L.g;
+    var x0 = compact ? w * .1 : w * .44, x1 = compact ? w * .9 : w * .96, gy = h * (compact ? .86 : .82), ty = h * (compact ? .1 : .13), ox = (x0 + x1) / 2 + (compact ? 0 : 30);
+    var pxm;
+    if (LAB.mode === 'drop') pxm = (gy - ty - 26) / S.drop;
+    else { var hRef = S.jump * S.jump / (2 * PL[0].g); pxm = (gy - ty) * .86 / hRef; }       // same scale on every planet
+    // simulation clock
+    if (LAB.phase === 'running' && dt > 0) {
+      LAB.t += dt * (S.slow ? .25 : 1); var gi = L.T / 16;
+      while (LAB.t >= LAB.next && LAB.next <= L.T + 1e-9) { LAB.ghosts.push(LAB.next); LAB.next += gi; }
+      if (LAB.t >= L.T) { LAB.t = L.T; LAB.phase = 'done'; LAB.flash = 1; updateLabHud(); setModeBtns(); }
+    }
+    if (LAB.flash > 0 && dt > 0) LAB.flash = Math.max(0, LAB.flash - dt * 1.4);
+    function hAt(tt) { return LAB.mode === 'drop' ? S.drop - .5 * g * tt * tt : S.jump * tt - .5 * g * tt * tt; }
+    var cur = LAB.phase === 'idle' ? 0 : LAB.t, hh = LAB.phase === 'idle' ? (LAB.mode === 'drop' ? S.drop : 0) : Math.max(0, hAt(cur));
+    var vNow = LAB.mode === 'drop' ? g * cur : S.jump - g * cur;
+
+    // ruler
+    var step = niceStep(pxm), top = LAB.mode === 'drop' ? S.drop : (gy - ty) / pxm, rx = x0 + 26, v;
+    c.strokeStyle = W(.3); c.lineWidth = 1; c.beginPath(); c.moveTo(rx, gy); c.lineTo(rx, gy - Math.min(top, (gy - ty) / pxm) * pxm); c.stroke();
+    for (v = 0; v * pxm <= gy - ty + 1; v += step) { var yy = gy - v * pxm; c.strokeStyle = W(.3); c.beginPath(); c.moveTo(rx, yy); c.lineTo(rx + 8, yy); c.stroke(); txt(c, (step < 1 ? v.toFixed(1) : String(Math.round(v))) + ' m', rx - 8, yy + 3, 9, W(.5), 'right'); }
+
+    // ground: horizon line + dotted regolith
+    var mars = p.id === 'mars';
+    function curve(x) { return (x - ox) * (x - ox) / 12000; }          // gentle planetary curvature
+    c.strokeStyle = W(.55); c.lineWidth = 1.2; c.beginPath();
+    var cxp; for (cxp = x0 - 40; cxp <= x1 + 40; cxp += 10) { if (cxp === x0 - 40) c.moveTo(cxp, gy + curve(cxp)); else c.lineTo(cxp, gy + curve(cxp)); } c.stroke();
+    var row, gx; for (row = 1; row <= 5; row++) for (gx = x0 - 40 + (row % 2) * 7; gx < x1 + 40; gx += 14) { c.fillStyle = mars ? Ac(.5 / row) : W(.4 / row); c.fillRect(gx, gy + curve(gx) + row * 11, 1.6, 1.6); }
+    txt(c, p.name + ' surface', x1 + 36, gy + 28, 9, W(.4), 'right');
+
+    // strobe ghosts
+    LAB.ghosts.forEach(function (tt) {
+      var gyp = gy - Math.max(0, hAt(tt)) * pxm;
+      if (LAB.mode === 'drop') { c.strokeStyle = W(.32); c.lineWidth = 1; c.beginPath(); c.arc(ox, gyp - 11, 11, 0, TAU); c.stroke(); }
+      else { c.fillStyle = Ac(.5); c.beginPath(); c.arc(ox, gyp - 22, 2.6, 0, TAU); c.fill(); }
+    });
+    // peak marker for jumps
+    if (LAB.mode === 'jump') {
+      var py = gy - L.hmax * pxm; c.setLineDash([3, 5]); c.strokeStyle = Ac(.6); c.lineWidth = 1; c.beginPath(); c.moveTo(rx, py); c.lineTo(ox + 90, py); c.stroke(); c.setLineDash([]);
+      txt(c, 'peak ' + L.hmax.toFixed(2) + ' m', ox + 96, py + 3, 10, Ac(1));
+    }
+    // Earth ghost: the same drop or jump on Earth, for comparison
+    if (p.id !== 'earth') {
+      var tE = LAB.phase === 'idle' ? 0 : cur, hE = LAB.mode === 'drop' ? Math.max(0, S.drop - .5 * gE * tE * tE) : Math.max(0, S.jump * tE - .5 * gE * tE * tE);
+      if (LAB.mode === 'drop' && LAB.phase !== 'idle' && tE > Math.sqrt(2 * S.drop / gE)) hE = 0;
+      var ex = ox - 78, ey = gy - hE * pxm;
+      c.setLineDash([3, 3]); c.strokeStyle = W(.45); c.lineWidth = 1; c.beginPath(); c.arc(ex, ey - 9, 9, 0, TAU); c.stroke(); c.setLineDash([]);
+      txt(c, 'Earth', ex, ey - 24, 9, W(.5), 'center');
+    }
+    // the object
+    var oy = gy - hh * pxm;
+    if (LAB.mode === 'drop') {
+      c.fillStyle = 'rgba(244,244,241,.95)'; c.strokeStyle = '#fff'; c.beginPath(); c.arc(ox, oy - 11, 11, 0, TAU); c.fill();
+      if (LAB.phase === 'idle') txt(c, S.drop.toFixed(0) + ' m', ox + 22, oy - 8, 10, W(.7));
+    } else {
+      var air = LAB.phase === 'running' && hh > .02; c.strokeStyle = '#fff'; c.lineWidth = 2; c.lineCap = 'round'; c.beginPath();
+      c.moveTo(ox, oy - 20); c.lineTo(ox - (air ? 8 : 5), oy); c.moveTo(ox, oy - 20); c.lineTo(ox + (air ? 8 : 5), oy); c.moveTo(ox, oy - 20); c.lineTo(ox, oy - 34);
+      c.moveTo(ox, oy - 31); c.lineTo(ox - 9, oy - (air ? 42 : 22)); c.moveTo(ox, oy - 31); c.lineTo(ox + 9, oy - (air ? 42 : 22)); c.stroke();
+      c.beginPath(); c.arc(ox, oy - 40, 5, 0, TAU); c.stroke(); c.lineCap = 'butt';
+    }
+    // impact ring
+    if (LAB.flash > 0) { c.strokeStyle = Ac(LAB.flash); c.lineWidth = 1.4; c.beginPath(); c.ellipse(ox, gy, 18 + (1 - LAB.flash) * 90, 5 + (1 - LAB.flash) * 18, 0, 0, TAU); c.stroke(); }
+
+    // labels
+    var lx = compact ? w * .06 : x0 - 2;
+    txt(c, (LAB.mode === 'drop' ? 'Drop' : 'Jump') + ' \u2022 ' + p.name, lx, ty - 16 < 14 ? 16 : ty - 16, 11, W(.95));
+    if (LAB.phase !== 'idle') txt(c, 't ' + cur.toFixed(2) + ' s    v ' + Math.abs(vNow).toFixed(1) + ' m/s    h ' + hh.toFixed(1) + ' m', lx, (ty - 16 < 14 ? 16 : ty - 16) + 15, 9, W(.55));
+    else txt(c, 'Press ' + (LAB.mode === 'drop' ? 'Drop object' : 'Jump simulation') + ' to run', lx, (ty - 16 < 14 ? 16 : ty - 16) + 15, 9, W(.45));
+  }
+
+  /* ======================================================================
+     controls, panel, compare
+     ====================================================================== */
+  var CTL = [
+    { k: 'drop', label: 'Drop height (m)', min: 1, max: 100, step: 1, dec: 0 },
+    { k: 'jump', label: 'Jump launch speed (m/s)', min: 1, max: 10, step: 0.1, dec: 1 }
+  ];
+  var form = $('#labControls');
+  CTL.forEach(function (c) {
+    var row = document.createElement('div'); row.className = 'ctl';
+    row.innerHTML = '<div class="ctl-top"><label for="n-' + c.k + '">' + c.label + '</label><input class="num" id="n-' + c.k + '" type="number" inputmode="decimal" min="' + c.min + '" max="' + c.max + '" step="' + c.step + '"></div>' +
+      '<input class="rng" id="r-' + c.k + '" type="range" min="' + c.min + '" max="' + c.max + '" step="' + c.step + '" aria-label="' + c.label + '">';
+    form.appendChild(row);
+    var num = row.querySelector('.num'), rng = row.querySelector('.rng');
+    function sync(from) { rng.value = S[c.k]; if (from !== 'num') num.value = S[c.k].toFixed(c.dec); }
+    function set(v, from) { S[c.k] = v; sync(from); if (c.k === 'drop') LAB.mode = 'drop'; else LAB.mode = 'jump'; resetLab(); invalidate(); }
+    rng.addEventListener('input', function () { set(+rng.value); });
+    num.addEventListener('input', function () { var v = parseFloat(num.value); if (isFinite(v)) set(clamp(v, c.min, c.max), 'num'); });
+    num.addEventListener('blur', function () { sync(); });
+    sync();
+  });
+  $('#bDrop').addEventListener('click', function () { runLab('drop'); });
+  $('#bJump').addEventListener('click', function () { runLab('jump'); });
+  $('#bReset').addEventListener('click', function () { resetLab(); invalidate(); });
+  $('#slow').addEventListener('change', function () { S.slow = this.checked; });
+
+  var nameEl = $('#pName'), nameTimer = 0;
+  function updatePanel(initial) {
+    var p = PL[sel];
+    function fill() { nameEl.textContent = p.name; }
+    if (initial || REDUCED) fill(); else { nameEl.classList.add('out'); clearTimeout(nameTimer); nameTimer = setTimeout(function () { fill(); nameEl.classList.remove('out'); }, 260); }
+    $('#pSub').textContent = p.id === 'earth' ? 'Earth \u2022 reference world' : p.name + ' \u2022 ' + p.type;
+    $('#sG').textContent = fmtN(p.g, 2); $('#sGx').textContent = fmtN(p.g / gE, 2) + ' \u00d7 Earth\u2019s';
+    $('#sV').textContent = fmtN(p.v, 2); $('#sW').textContent = fmtN(70 * p.g, 1); $('#sR').textContent = fmtN(Math.round(p.R), 0);
+  }
+
+  var METRICS = [
+    { k: 'g',    tab: 'Surface gravity (m/s\u00b2)',    fn: function (p) { return p.g; }, d: 2 },
+    { k: 'v',    tab: 'Escape velocity (km/s)',         fn: function (p) { return p.v; }, d: 2 },
+    { k: 'fall', tab: '20 m fall time (s)',             fn: function (p) { return Math.sqrt(40 / p.g); }, d: 2 },
+    { k: 'jump', tab: 'Jump height at 4 m/s (m)',       fn: function (p) { return 16 / (2 * p.g); }, d: 2 }
+  ];
+  var metric = 0, barEls = [];
+  METRICS.forEach(function (m, i) {
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'tab'; b.setAttribute('role', 'tab'); b.textContent = m.tab; b.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+    b.addEventListener('click', function () { metric = i; $$tabs().forEach(function (t, k) { t.setAttribute('aria-selected', k === i ? 'true' : 'false'); }); updateCompare(); });
+    $('#tabs').appendChild(b);
+  });
+  function $$tabs() { return Array.prototype.slice.call(document.querySelectorAll('.tab')); }
+  PL.forEach(function (p, k) {
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'bar'; b.innerHTML = '<span class="nm">' + p.name + '</span><span class="track"><i></i></span><span class="val mono"></span>';
+    b.setAttribute('aria-label', 'Select ' + p.name); b.addEventListener('click', function () { select(k); }); $('#bars').appendChild(b); barEls.push(b);
+  });
+  function updateCompare() {
+    var m = METRICS[metric], vals = PL.map(m.fn), mx = Math.max.apply(null, vals);
+    barEls.forEach(function (b, k) { b.classList.toggle('sel', k === sel); b.querySelector('i').style.width = (vals[k] / mx * 100).toFixed(1) + '%'; b.querySelector('.val').textContent = fmtN(vals[k], m.d); });
+  }
+
+  function select(k) {
+    if (k === sel) return; sel = k; fade = 0;
+    pkBtns.forEach(function (b, i) { b.setAttribute('aria-pressed', i === k ? 'true' : 'false'); });
+    getSphere(PL[k], 24000); updatePanel(); updateCompare(); resetLab(); invalidate();
+  }
+
+  /* ======================================================================
+     start-up, scroll, sections
+     ====================================================================== */
+  buildPickerButtons(); updatePanel(true); updateCompare(); updateLabHud();
+  var heroHost = new Host($('#cvHero'), heroDraw);
+  pickHost = new Host($('#cvPick'), pickDraw, function (w, h) { pick.pos = pickLayout(w, h); placePickerButtons(); });
+  new Host($('#cvPlanet'), planetDraw);
+  new Host($('#cvLab'), labDraw);
+  $('#cvHero').parentNode.parentNode.addEventListener('click', function (e) {
+    if (e.target.closest('a, button')) return;
+    if (heroHover >= 0) { select(heroHover); document.getElementById('planet').scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth' }); }
+  });
+
+  var slides = Array.prototype.slice.call(document.querySelectorAll('[data-slide]'));
+  function setActive(i) {
+    document.querySelectorAll('[data-rail]').forEach(function (a) { var on = +a.getAttribute('data-rail') === i; a.classList.toggle('is-active', on); if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
+    document.querySelectorAll('[data-nav]').forEach(function (a) { a.classList.toggle('is-active', +a.getAttribute('data-nav') === i); });
+  }
+  function onScroll() {
+    document.documentElement.classList.toggle('is-top', window.scrollY < 40);
+    var vh = window.innerHeight, cur = 0; slides.forEach(function (s, i) { var r = s.getBoundingClientRect(); if (r.top <= vh * .5 && r.bottom > vh * .5) cur = i; }); setActive(cur);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  if ('IntersectionObserver' in window && !REDUCED) {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: .2 });
+    slides.forEach(function (s) { io.observe(s); });
+    var fr = (document.fonts && document.fonts.ready) ? Promise.race([document.fonts.ready, new Promise(function (r) { setTimeout(r, 1500); })]) : Promise.resolve();
+    fr.then(function () { requestAnimationFrame(function () { $('#home').classList.add('in'); }); });
+  } else { slides.forEach(function (s) { s.classList.add('in'); }); }
+
+  requestAnimationFrame(loop);
+})();
 </script>
-</body></html>
+</body>
+</html>
